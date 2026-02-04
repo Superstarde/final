@@ -1,8 +1,8 @@
-ff<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For My Valentine ❤️</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -12,9 +12,10 @@ ff<!DOCTYPE html>
         body {
             font-family: 'Poppins', sans-serif;
             background: #000;
-            overflow-x: hidden;
+            overflow: hidden;
             color: #fce7f3;
             margin: 0;
+            height: 100vh;
         }
         .font-dancing { font-family: 'Dancing Script', cursive; }
         .font-playfair { font-family: 'Playfair Display', serif; }
@@ -33,6 +34,7 @@ ff<!DOCTYPE html>
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
             z-index: 10;
+            overflow: hidden;
         }
         .section.active {
             display: flex;
@@ -43,36 +45,33 @@ ff<!DOCTYPE html>
         .bg-intro { background: radial-gradient(circle at center, #2a0a18 0%, #000000 100%); }
         .bg-wish { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%); color: #d63384; }
         .bg-photos { background: linear-gradient(to bottom, #2c0e18, #5a192c); }
-        .bg-letter { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); overflow: hidden; }
+        .bg-letter { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
 
         /* --- Carousel Styles --- */
         .carousel-container {
             position: relative;
             width: 100%;
-            height: 55vh;
+            height: 50vh; 
             display: flex;
             justify-content: center;
             align-items: center;
             perspective: 1000px;
-            margin-top: 20px;
+            margin-top: -20px;
         }
         
         .carousel-item {
             position: absolute;
-            width: 300px;
-            height: 450px;
-            border-radius: 20px;
+            width: 75vw; 
+            max-width: 380px;
+            height: 55vh; 
+            max-height: 520px;
+            border-radius: 15px;
             background: #fff;
             overflow: hidden;
             cursor: pointer;
-            border: 4px solid #ec4899; 
-            box-shadow: 0 0 20px #ec4899, 0 0 40px #be185d;
-            animation: pulsePink 3s infinite alternate;
-        }
-
-        @keyframes pulsePink {
-            from { box-shadow: 0 0 15px #ec4899; }
-            to { box-shadow: 0 0 35px #ec4899, 0 0 10px white; }
+            border: 3px solid #ec4899; 
+            box-shadow: 0 0 15px #ec4899;
+            will-change: transform;
         }
 
         .carousel-item img {
@@ -82,15 +81,11 @@ ff<!DOCTYPE html>
             display: block;
         }
 
-        @media (max-width: 768px) {
-            .carousel-item { width: 260px; height: 380px; }
-        }
-
         /* --- Falling Petals --- */
         .petal {
             position: fixed;
             top: -10vh;
-            font-size: 2rem;
+            font-size: 1.5rem;
             pointer-events: none;
             z-index: 50;
             animation: fall linear forwards;
@@ -99,7 +94,7 @@ ff<!DOCTYPE html>
             to { transform: translateY(110vh) rotate(720deg); }
         }
 
-        /* --- ENVELOPE STYLES (NEW) --- */
+        /* --- ENVELOPE STYLES --- */
         .envelope-wrapper {
             position: relative;
             display: flex;
@@ -111,8 +106,9 @@ ff<!DOCTYPE html>
         }
 
         .envelope {
-            width: 320px;
-            height: 220px;
+            width: 85vw;
+            max-width: 320px;
+            height: 200px;
             background: #be123c;
             position: relative;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
@@ -121,31 +117,41 @@ ff<!DOCTYPE html>
             z-index: 20;
         }
 
-        /* The Flap */
         .envelope-flap {
             position: absolute;
             top: 0;
             left: 0;
             width: 0;
             height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-top: 130px solid #e11d48; /* Lighter red for contrast */
+            border-left: 42.5vw solid transparent;
+            border-right: 42.5vw solid transparent;
+            border-top: 130px solid #e11d48;
             transform-origin: top;
-            z-index: 6; /* On top when closed */
+            z-index: 6;
+        }
+        @media(min-width: 380px) {
+            .envelope-flap {
+                border-left: 160px solid transparent;
+                border-right: 160px solid transparent;
+            }
         }
 
-        /* The Pocket */
         .envelope-pocket {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 0;
             height: 0;
-            border-left: 160px solid transparent;
-            border-right: 160px solid transparent;
-            border-bottom: 140px solid #fb7185; /* Lightest red */
+            border-left: 42.5vw solid transparent;
+            border-right: 42.5vw solid transparent;
+            border-bottom: 140px solid #fb7185;
             z-index: 5;
+        }
+        @media(min-width: 380px) {
+            .envelope-pocket {
+                border-left: 160px solid transparent;
+                border-right: 160px solid transparent;
+            }
         }
 
         /* The Paper/Letter */
@@ -157,30 +163,29 @@ ff<!DOCTYPE html>
             background: #fffdf7;
             padding: 20px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 3; /* Start behind pocket */
+            z-index: 3;
             transform: scale(0.8);
             opacity: 0;
             overflow-y: auto;
             border-radius: 5px;
+            scrollbar-width: none; 
+            -ms-overflow-style: none;
+        }
+        .letter-content::-webkit-scrollbar { 
+            display: none; 
         }
 
         /* Navigation Buttons */
         .nav-btn {
-            background: #ec4899;
+            background: rgba(236, 72, 153, 0.8);
             color: white;
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 40px;
+            height: 40px;
             border-radius: 50%;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(236, 72, 153, 0.4);
-            transition: transform 0.2s, background 0.2s;
-            z-index: 20;
-        }
-        .nav-btn:hover { 
-            transform: scale(1.1); 
-            background: #db2777; 
+            z-index: 30;
         }
     </style>
 </head>
@@ -193,43 +198,42 @@ ff<!DOCTYPE html>
     <div id="hearts-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
     <div id="screen-1" class="section active bg-intro">
-        <h1 class="text-6xl md:text-8xl font-dancing text-pink-500 mb-6 drop-shadow-lg text-center px-4">
+        <h1 class="text-5xl md:text-8xl font-dancing text-pink-500 mb-6 drop-shadow-lg text-center px-4">
             For Amna...
         </h1>
-        <p class="text-pink-200 text-xl mb-10 font-light tracking-wide">I have a surprise for you</p>
+        <p class="text-pink-200 text-lg mb-10 font-light tracking-wide">I have a surprise for you</p>
         
-       <button onclick="startJourney()" class="px-12 py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-full text-white font-bold text-xl shadow-lg animate-bounce border-2 border-pink-400 z-50">
+        <button onclick="startJourney()" class="px-12 py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-full text-white font-bold text-xl shadow-lg animate-bounce border-2 border-pink-400 z-50">
             Tap to Open ❤️
         </button>
     </div>
 
     <div id="screen-2" class="section bg-wish text-center px-4">
-        <h1 class="text-5xl md:text-7xl font-dancing font-bold text-pink-700 mb-4 scale-0" id="wish-title">
-            Happy Valentine's Day<br>Baby! 🌹
+        <h1 class="text-5xl md:text-7xl font-dancing font-bold text-pink-700 mb-4 scale-0 leading-tight" id="wish-title">
+            Happy<br>Valentine's<br>Day! 🌹
         </h1>
-        <p class="text-xl text-rose-800 mt-4 opacity-0" id="wish-sub">
+        <p class="text-lg text-rose-800 mt-2 opacity-0" id="wish-sub">
             You make my life beautiful.
         </p>
-        <button onclick="nextSection(3)" class="absolute bottom-10 md:bottom-8 px-8 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm md:text-base">
-    See Our Memories ❤️
-        </button>
-    </div>
+        <button onclick="nextSection(3)" class="absolute bottom-8 px-8 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm md:text-base">
+        See Our Memories ❤️
+       </button>
+       </div>
 
-    <div id="screen-3" class="section bg-photos relative">
+  <div id="screen-3" class="section bg-photos relative">
         <h2 class="absolute top-16 text-3xl md:text-4xl font-dancing text-pink-300 z-20">Our Moments</h2>
-</h2>
 
         <div class="carousel-container">
-            <button class="nav-btn absolute left-4 md:left-10" onclick="moveSlide(-1)">❮</button>
+            <button class="nav-btn absolute left-2 md:left-10" onclick="moveSlide(-1)">❮</button>
             <div id="track" class="w-full h-full flex justify-center items-center relative"></div>
-            <button class="nav-btn absolute right-4 md:right-10" onclick="moveSlide(1)">❯</button>
+            <button class="nav-btn absolute right-2 md:right-10" onclick="moveSlide(1)">❯</button>
         </div>
 
-  <div class="absolute bottom-32 w-full flex items-center justify-center px-4 text-center z-20">
+        <div class="absolute bottom-32 w-full flex items-center justify-center px-4 text-center z-20">
             <p id="caption" class="text-lg md:text-4xl font-playfair text-pink-200 italic transition-opacity duration-300 min-h-[3rem]"></p>
         </div>
-    
-       <button onclick="nextSection(4)" class="absolute bottom-16 px-6 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm md:text-base">
+
+        <button onclick="nextSection(4)" class="absolute bottom-16 px-6 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm md:text-base">
             One Last Thing...❤️ 
         </button>
     </div>
@@ -241,44 +245,44 @@ ff<!DOCTYPE html>
             <div class="envelope" id="envelope">
                 
                 <div class="envelope-flap" id="flap"></div>
-                
                 <div class="envelope-pocket" id="pocket"></div>
 
                 <div class="letter-content" id="letter">
                     <div class="absolute -top-4 left-1/2 transform -translate-x-1/2 w-32 h-8 bg-pink-200/40 -rotate-1"></div>
                     
-                    <h2 class="text-3xl font-dancing text-center text-rose-600 mb-6 mt-4">Meri Shayaari, Meri Amna...</h2>
+                    <h2 class="text-2xl font-dancing text-center text-rose-600 mb-4 mt-2">Meri Shayaari, Meri Amna...</h2>
                     
-                    <div class="space-y-6 text-gray-800 font-playfair leading-relaxed text-sm md:text-base">
-                        <p class="text-center italic text-rose-500 font-semibold">
+                    <div class="space-y-4 text-gray-800 font-playfair leading-relaxed text-sm md:text-base text-justify">
+                        <p class="text-center italic text-rose-500 font-semibold text-base">
                             "Log kehte hain mohabbat ek baar hoti hai,<br>
                             Par main jab jab aapko dekhta hoon, mujhe har baar hoti hai."
                         </p>
 
                         <p>
-                            Amna, log Valentine's Day par tohfe (gifts) dete hain, par main aapko apna aane wala har lamha dena chahta hoon.
+                            Amna, log Valentine's Day par tohfe dete hain, par main aapko apna aane wala har lamha dena chahta hoon.
+                            
+                          </p>
+                        
+                        <p>  
+                          Aap mere liye sirf ek rishta nahi ho, aap sukoon ka wo thikana ho jahan main din bhar ki thakan ke baad panah leta hoon. 
+                             
                         </p>
-                        
+
                         <p>
-                            Aap mere liye sirf ek rishta nahi ho, aap sukoon ka wo thikana ho jahan main din bhar ki thakan ke baad panah leta hoon. 
-                         </p>
-                        
-                        <p>
-                            Vaada hai mera, duniya ki bheed mein kabhi aapka haath nahi chodunga, aur humesha aapki izzat aur khushi ko apni pehli tarjih (priority) rakhunga.
+                             Vaada hai mera, duniya ki bheed mein kabhi aapka haath nahi chodunga.
                         </p>
 
                         <div class="pt-4 text-center">
-                            <p class="text-xl font-dancing text-rose-600 font-bold">
+                            <p class="text-lg font-dancing text-rose-600 font-bold">
                                 Happy Valentine's Day, My Queen. 👑
                             </p>
                         </div>
-                        
 
-                        <div class="mt-8 pt-4 border-t border-dashed border-rose-200">
-                            <p class="text-right text-gray-600 italic text-xs">Humesha ke liye aapka,</p>
+                        <div class="mt-6 pt-4 border-t border-dashed border-rose-200 pb-4">
+                            <p class="text-right text-gray-600 italic text-xs">Always Yours,</p>
                             <p class="text-right font-bold text-rose-600">
-                                <span class="text-2xl font-dancing">Dev</span> <br>
-                                <span class="text-xs tracking-widest uppercase">Aapka Humsafar 💍❤️</span>
+                                <span class="text-2xl font-dancing">Dev
+                                    (chirkokla)</span>
                             </p>
                         </div>
                     </div>
@@ -286,20 +290,18 @@ ff<!DOCTYPE html>
             </div>
         </div>
 
-        <button onclick="location.reload()" class="fixed bottom-5 right-5 text-pink-100 hover:text-white text-xs bg-black/20 px-3 py-1 rounded-full z-50 cursor-pointer">
-            Restart Our Story ↻
+        <button onclick="location.reload()" class="fixed top-5 right-5 text-pink-100 hover:text-white text-xs bg-black/20 px-3 py-1 rounded-full z-50">
+            Restart ↻
         </button>
     </div>
 
     <script>
-        // --- CONFIGURATION ---
-        // Ensure you have images named pic1.png, pic2.jpg etc in the folder
         const slides = [
             { img: "pic1.png", caption: "I love you more than words can say 💖" },
             { img: "pic2.jpg", caption: "You are full of surprises! 🎁" },
             { img: "pic3.png", caption: "Your smile is my daily motivation ✨" },
-            { img: "pic4.jpg", caption: "You are my favorite notification 📱❤️" },
-            { img: "pic5.png", caption: "Our most precious memory together 🌟" },
+            { img: "pic4.jpg", caption: "Our most precious memory together 🌟" },
+            { img: "pic5.png", caption: "You are my favorite notification 📱❤️" },
             { img: "pic6.jpg", caption: "Every moment with you is a treasure 💎" },
             { img: "pic7.png", caption: "My heart is wherever you are 🏠❤️" },
             { img: "pic8.jpg", caption: "To many more years of us! 🥂" }
@@ -308,7 +310,6 @@ ff<!DOCTYPE html>
         let currentSlide = 0;
         const bgMusic = document.getElementById('bgMusic');
 
-        // --- SECTION 1 ---
         function startJourney() {
             bgMusic.play().catch(e => console.log("Audio interaction needed"));
             nextSection(2);
@@ -319,7 +320,6 @@ ff<!DOCTYPE html>
             }, 500);
         }
 
-        // --- NAVIGATION ---
         function nextSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             const next = document.getElementById(`screen-${id}`);
@@ -329,19 +329,15 @@ ff<!DOCTYPE html>
             if(id === 4) startLetterAnimation();
         }
 
-        // --- CAROUSEL LOGIC ---
         function renderCarousel() {
             const track = document.getElementById('track');
             track.innerHTML = '';
-
             slides.forEach((slide, index) => {
                 const el = document.createElement('div');
                 el.className = 'carousel-item';
                 
                 const img = document.createElement('img');
                 img.src = slide.img;
-                
-                // Fallback if image missing
                 img.onerror = function() {
                     this.style.display = 'none';
                     const errDiv = document.createElement('div');
@@ -349,12 +345,11 @@ ff<!DOCTYPE html>
                         width: '100%', height: '100%',
                         backgroundColor: '#fce7f3', color: '#db2777',
                         display: 'flex', alignItems: 'center', justifyContent: 'center',
-                        textAlign: 'center', padding: '20px'
+                        textAlign: 'center', padding: '10px', fontSize: '12px'
                     });
-                    errDiv.innerHTML = `<strong>Add Photo!</strong><br>${slide.img}`;
+                    errDiv.innerHTML = `<strong>Photo?</strong><br>${slide.img}`;
                     el.appendChild(errDiv);
                 };
-
                 el.onclick = () => moveSlide(index - currentSlide);
                 el.appendChild(img);
                 track.appendChild(el);
@@ -380,17 +375,19 @@ ff<!DOCTYPE html>
                 if(offset > slides.length/2) visualOffset -= slides.length;
                 if(offset < -slides.length/2) visualOffset += slides.length;
 
+                // Spacing logic (Compact for mobile)
                 if (visualOffset === 0) {
                     transform = 'translateX(0) scale(1)';
                     zIndex = 10; opacity = 1; pointerEvents = 'auto';
                 } else if (Math.abs(visualOffset) === 1) {
-                    transform = `translateX(${visualOffset * 220}px) scale(0.8) rotateY(${visualOffset * -15}deg)`;
+                    // Closer overlap for mobile
+                    const xOffset = visualOffset * (window.innerWidth < 600 ? 150 : 220); 
+                    transform = `translateX(${xOffset}px) scale(0.8) rotateY(${visualOffset * -15}deg)`;
                     zIndex = 5; opacity = 0.6; pointerEvents = 'auto'; 
                 } else {
                     transform = `translateX(${visualOffset * 100}px) scale(0)`;
                     opacity = 0;
                 }
-
                 item.style.transform = transform;
                 item.style.zIndex = zIndex;
                 item.style.opacity = opacity;
@@ -403,11 +400,10 @@ ff<!DOCTYPE html>
             }, 300);
         }
 
-        // --- ENVELOPE & LETTER ANIMATION (FIXED) ---
+        // --- FIXED LETTER ANIMATION ---
         function startLetterAnimation() {
-            // 1. Start Petals
             const container = document.getElementById('petals-container');
-            const roseTypes = ['🌺', '🌸']; 
+            const roseTypes = ['🌺','🌸']; 
             
             const createPetal = () => {
                 const el = document.createElement('div');
@@ -415,23 +411,20 @@ ff<!DOCTYPE html>
                 el.textContent = roseTypes[Math.floor(Math.random() * roseTypes.length)];
                 el.style.left = Math.random() * 100 + 'vw';
                 el.style.animationDuration = Math.random() * 3 + 4 + 's';
-                el.style.fontSize = Math.random() * 20 + 20 + 'px';
+                el.style.fontSize = Math.random() * 15 + 15 + 'px';
                 container.appendChild(el);
                 setTimeout(() => el.remove(), 7000);
             };
             const interval = setInterval(createPetal, 300);
             setTimeout(() => clearInterval(interval), 20000);
 
-            // 2. Animate Envelope with GSAP
             const tl = gsap.timeline({ delay: 0.5 });
 
-            // A. Open Flap
             tl.to("#flap", { 
                 rotateX: 180, 
                 duration: 1, 
                 ease: "power2.inOut" 
             })
-            // B. Pull Letter Up
             .to("#letter", { 
                 y: -120, 
                 opacity: 1,
@@ -439,10 +432,9 @@ ff<!DOCTYPE html>
                 duration: 1,
                 ease: "back.out(1.2)"
             })
-            // C. Zoom Letter to Read Mode
             .to("#letter", {
                 zIndex: 50,
-                y: 200,
+                y: 170,
                 scale: 1,
                 height: "80vh",
                 width: "90vw",
@@ -450,21 +442,18 @@ ff<!DOCTYPE html>
                 duration: 1.5,
                 ease: "power3.out"
             }, "+=0.2")
-            // D. Fade out Envelope elements (THE FIX IS HERE)
-            // We fade out the flap and pocket, but for the envelope container, 
-            // we only fade the background color, not the whole div.
+            // Fade out flaps only, fade background of envelope transparent
             .to(["#flap", "#pocket"], {
                 opacity: 0,
                 duration: 0.5
             }, "-=1.0")
             .to("#envelope", {
-                backgroundColor: "rgba(190, 18, 60, 0)", // Fade red to transparent
-                boxShadow: "0 0 0 rgba(0,0,0,0)",        // Remove shadow
+                backgroundColor: "rgba(190, 18, 60, 0)",
+                boxShadow: "0 0 0 rgba(0,0,0,0)",
                 duration: 0.5
-            }, "<"); // Run at same time as previous animation
+            }, "<");
         }
 
-        // --- BACKGROUND HEARTS ---
         function initHearts() {
             const container = document.getElementById('hearts-container');
             setInterval(() => {
