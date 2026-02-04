@@ -20,24 +20,25 @@
         .font-playfair { font-family: 'Playfair Display', serif; }
 
         /* --- Screens / Sections --- */
-        .section {
-            display: none;
-            height: 100vh;
-            width: 100vw;
-            position: fixed;
-            top: 0;
-            left: 0;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: opacity 0.8s ease-in-out;
-            z-index: 10;
-        }
-        .section.active {
-            display: flex;
-            opacity: 1;
-        }
+.section {
+    display: none;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between; /* This pushes title to top and button to bottom */
+    padding: 20px 0 40px 0; /* Adds breathing room at top and bottom */
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+    z-index: 10;
+}
+.section.active {
+    display: flex;
+    opacity: 1;
+}
 
         /* --- Backgrounds --- */
         .bg-intro { background: radial-gradient(circle at center, #2a0a18 0%, #000000 100%); }
@@ -45,18 +46,16 @@
         .bg-photos { background: linear-gradient(to bottom, #2c0e18, #5a192c); }
         .bg-letter { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); overflow: hidden; }
 
-        /* --- Carousel Styles --- */
-        .carousel-container {
-            position: relative;
-            width: 100%;
-            height: 45vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            perspective: 1000px;
-            margin-top: 40px;
-        }
-        
+       /* --- Carousel Styles --- */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 40vh; /* Reduced height for better fit */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    perspective: 1000px;
+}
         .carousel-item {
             position: absolute;
             width: 300px;
@@ -82,10 +81,12 @@
             display: block;
         }
 
-        @media (max-width: 768px) {
-            .carousel-item { width: 220px; height: 300px; }
-        }
-
+       @media (max-width: 768px) {
+    .carousel-item { 
+        width: 220px; 
+        height: 320px; /* Smaller photos for mobile */
+    }
+}
         /* --- Falling Petals --- */
         .petal {
             position: fixed;
@@ -192,43 +193,40 @@
 
     <div id="hearts-container" class="fixed inset-0 pointer-events-none z-0"></div>
 
-    <div id="screen-1" class="section active bg-intro">
-        <h1 class="text-6xl md:text-8xl font-dancing text-pink-500 mb-6 drop-shadow-lg text-center px-4">
-            For Amna...
-        </h1>
-        <p class="text-pink-200 text-xl mb-10 font-light tracking-wide">I have a surprise for you</p>
-        
-         <button onclick="startJourney()" class="px-12 py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-full text-white font-bold text-xl shadow-lg animate-bounce border-2 border-pink-400 z-50">
-            Tap to Open ❤️
-        </button>
-    </div>
+    <div id="screen-1" class="section active bg-intro !justify-center">
+    <h1 class="text-6xl font-dancing text-pink-500 mb-6 text-center px-4">For Amna...</h1>
+    <p class="text-pink-200 text-xl mb-10 font-light">I have a surprise for you</p>
+    
+    <button onclick="startJourney()" class="px-12 py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-full text-white font-bold text-xl shadow-lg animate-bounce border-2 border-pink-400 z-[100] cursor-pointer pointer-events-auto">
+        Tap to Open ❤️
+    </button>
+</div>
 
-    <div id="screen-2" class="section bg-wish text-center px-4">
-        <h1 class="text-5xl md:text-7xl font-dancing font-bold text-pink-700 mb-4 scale-0" id="wish-title">
-            Happy Valentine's Day<br>Baby! 🌹
-        </h1>
-        <p class="text-xl text-rose-800 mt-4 opacity-0" id="wish-sub">
-            You make my life beautiful.
-        </p>
-        <button onclick="nextSection(3)" class="absolute bottom-40 px-8 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm md:text-base">
+<div id="screen-2" class="section bg-wish text-center px-4">
+    <div class="mt-20">
+        <h1 class="text-5xl font-dancing font-bold text-pink-700 mb-4 scale-0" id="wish-title">Happy Valentine's Day Baby! 🌹</h1>
+        <p class="text-xl text-rose-800 mt-4 opacity-0" id="wish-sub">You make my life beautiful.</p>
+    </div>
+    
+    <button onclick="nextSection(3)" class="px-8 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50">
         See Our Memories ❤️
-        </button>
-    </div>
+    </button>
+</div>
 
-   <div id="screen-3" class="section bg-photos relative flex flex-col justify-start pt-4">
-    <h2 class="text-3xl font-dancing text-pink-300 mb-2 z-20">Our Moments</h2>
+<div id="screen-3" class="section bg-photos">
+    <h2 class="text-4xl font-dancing text-pink-300 z-20">Our Moments</h2>
 
-    <div class="carousel-container" style="height: 40vh; margin-top: 10px;">
-        <button class="nav-btn absolute left-2" onclick="moveSlide(-1)" style="width: 40px; height: 40px;">❮</button>
+    <div class="carousel-container">
+        <button class="nav-btn absolute left-4 z-50" onclick="moveSlide(-1)">❮</button>
         <div id="track" class="w-full h-full flex justify-center items-center relative"></div>
-        <button class="nav-btn absolute right-2" onclick="moveSlide(1)" style="width: 40px; height: 40px;">❯</button>
+        <button class="nav-btn absolute right-4 z-50" onclick="moveSlide(1)">❯</button>
     </div>
 
-    <div class="h-12 flex items-center justify-center px-4 text-center z-20 mt-2">
-        <p id="caption" class="text-lg font-playfair text-pink-200 italic transition-opacity duration-300"></p>
+    <div class="px-4 text-center z-20 min-h-[50px]">
+        <p id="caption" class="text-lg font-playfair text-pink-200 italic"></p>
     </div>
 
-    <button onclick="nextSection(4)" class="absolute bottom-10 px-6 py-2 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm">
+    <button onclick="nextSection(4)" class="px-6 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full z-50">
         One Last Thing...❤️
     </button>
 </div>
