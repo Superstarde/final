@@ -49,12 +49,12 @@
         .carousel-container {
             position: relative;
             width: 100%;
-            height: 55vh;
+            height: 45vh;
             display: flex;
             justify-content: center;
             align-items: center;
             perspective: 1000px;
-            margin-top: 20px;
+            margin-top: 40px;
         }
         
         .carousel-item {
@@ -83,7 +83,7 @@
         }
 
         @media (max-width: 768px) {
-            .carousel-item { width: 260px; height: 380px; }
+            .carousel-item { width: 260px; height: 340px; }
         }
 
         /* --- Falling Petals --- */
@@ -224,7 +224,7 @@
             <button class="nav-btn absolute right-4 md:right-10" onclick="moveSlide(1)">❯</button>
         </div>
 
-        <div class="h-20 flex items-center justify-center px-4 text-center z-20 -mt-10 mb-2">
+        <div class="h-20 flex items-center justify-center px-4 text-center z-20 mt-4 mb-2">
             <p id="caption" class="text-xl md:text-2xl font-playfair text-pink-200 italic transition-opacity duration-300"></p>
         </div>
 
