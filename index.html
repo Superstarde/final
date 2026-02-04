@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ff<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -198,7 +198,7 @@
         </h1>
         <p class="text-pink-200 text-xl mb-10 font-light tracking-wide">I have a surprise for you</p>
         
-        <button onclick="startJourney()" class="px-10 py-4 bg-gradient-to-r from-pink-600 to-rose-600 rounded-full text-white font-bold text-xl shadow-lg hover:scale-105 transition-transform duration-300 border-2 border-pink-400 z-50 cursor-pointer">
+        <button onclick="startJourney()" class="mt-12 px-8 py-3 bg-white text-pink-600 rounded-full font-bold shadow-xl transition opacity-0 animate-bounce" id="wish-btn">
             Tap to Open ❤️
         </button>
     </div>
@@ -210,8 +210,8 @@
         <p class="text-xl text-rose-800 mt-4 opacity-0" id="wish-sub">
             You make my life beautiful.
         </p>
-        <button onclick="nextSection(3)" class="mt-12 px-8 py-3 bg-white text-pink-600 rounded-full font-bold shadow-xl hover:bg-rose-50 transition opacity-0 cursor-pointer" id="wish-btn">
-            See Our Memories ➡️
+        <button onclick="nextSection(3)" class="absolute bottom-8 px-6 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm md:text-base">
+    See Our Memories...❤️
         </button>
     </div>
 
@@ -228,8 +228,9 @@
             <p id="caption" class="text-xl md:text-2xl font-playfair text-pink-200 italic transition-opacity duration-300"></p>
         </div>
 
-        <button onclick="nextSection(4)" class="mt-4 px-6 py-2 border border-pink-400 text-pink-300 rounded-full hover:bg-pink-900/30 transition z-20 text-sm cursor-pointer">
-            One Last Thing... ↓
+       <button onclick="nextSection(4)" class="absolute bottom-8 px-6 py-3 border border-pink-400 bg-pink-900/40 backdrop-blur-sm text-pink-100 rounded-full hover:bg-pink-800/60 transition z-50 text-sm md:text-base">
+    One Last Thing...❤️
+</button>
         </button>
     </div>
 
@@ -272,7 +273,6 @@
                             </p>
                         </div>
                         
-                        <div class="text-center text-rose-300 text-xs mt-2 animate-pulse">(Scroll to read full letter)</div>
 
                         <div class="mt-8 pt-4 border-t border-dashed border-rose-200">
                             <p class="text-right text-gray-600 italic text-xs">Humesha ke liye aapka,</p>
@@ -442,7 +442,7 @@
             // C. Zoom Letter to Read Mode
             .to("#letter", {
                 zIndex: 50,
-                y: 0,
+                y: 120,
                 scale: 1,
                 height: "80vh",
                 width: "90vw",
